@@ -21,3 +21,7 @@ $routes->post('/contact/update/(:num)', 'ContactController::update/$1');
 $routes->get('/contact/view/(:num)', 'ContactController::view/$1');
 
 
+$routes->get('register', 'RegisterController::index');
+$routes->post('register/save', 'RegisterController::save');
+
+
