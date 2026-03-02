@@ -3,12 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\Users; // Added so the model works
+use App\Models\Users;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class RegisterController extends BaseController
 {
-    // These need to be declared here to be used in methods
     protected $model;
     protected $helpers = ['form', 'url'];
 
@@ -35,25 +34,18 @@ class RegisterController extends BaseController
             'password' => 'required|min_length[6]|max_length[200]',
             'confpassword' => 'matches[password]'
         ])) {
-            return redirect()->to(base_url('register'))->withInput();
+            return redirect()->to(base_url('Register'))->withInput();
         }
 
-        $name = $this->request->getPost('name');
-        $email = $this->request->getPost('email');
-        // Fixed the broken line break below
-        $password = password_hash($this->request->getPost('password'), PASSWORD_DEFAULT);
-        
         $users = [
-            'user_name' => $name,
-            'user_email' => $email,
-            'user_password' => $password
+            'user_name' => $this->request->getPost('name'),
+            'user_email' => $this->request->getPost('email'),
+            'user_password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT)
         ];
 
-        $save = $this->model->save($users);
-
-        if ($save) {
+        if ($this->model->save($users)) {
             session()->setFlashdata('success', 'Record has been added successfully.');
-            return redirect()->to(base_url('register'));
+            return redirect()->to(base_url('Register'));
         } else {
             session()->setFlashdata('error', 'Some problems occured, please try again.');
             return redirect()->back();

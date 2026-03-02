@@ -1,4 +1,5 @@
-<?= $this->extend('base') ?>
+<?= $this->extend('layout/PageLayout') ?>
+
 <?= $this->section('content') ?>
 <div class="container mt-5">
     <div class="row">
@@ -53,7 +54,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <a href="<?= base_url('login') ?>" class="btn btnprimary"><i class="fa fa-arrow-circle-left"></i>&nbsp;Back</a>
+                        <a href="<?= base_url('main') ?>" class="btn btnprimary"><i class="fa fa-arrow-circle-left"></i>&nbsp;Back</a>
                         <button class="btn btn-success"><i class="fa fasave"></i>&nbsp;Register</button>
                     </div>
                     <?= form_close(); ?>
